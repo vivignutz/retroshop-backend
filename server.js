@@ -1,12 +1,13 @@
 const express = require('express');
+const app = express();
+const port = 3000;
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-const app = express();
-
-// Port configuration
-const port = 3000;
+app.get('/welcome', (req, res) => {
+    res.send('Welcome to my website!');
+});
 
 // Middleware para JSON
 app.use(bodyParser.json());
@@ -14,26 +15,23 @@ app.use(bodyParser.json());
 // Middleware para CORS
 app.use(cors());
 
-// MongoDB connection
-mongoose.connect('mongodb://localhost:27017/ecommerce', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
+// MongoDB connection + error message
+// in case server doesn't connetc
+mongoose.connect('mongodb://localhost:27017/ecommerce');
+mongoose.connect('mongodb://localhost:27017/ecommerce', { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+        console.log("MongoDB connected successfully");
+    })
+    .catch(err => {
+        console.error("MongoDB connection error:", err);
+        process.exit(1); // Finish Node.js process with an error code
+    });
 
-// API routes (a serem implementadas)
+
+// API routes
+const productsRoutes = require('./routes/prodctsRoutes');
+app.use('/', productsRoutes);
 
 app.listen(port, () => {
-    console.log(`Server running on Port ${port}`);
+    console.log(`Server is running on http://localhost:${port}`);
 });
-
-
-
-//const server = http.createServer((req, res) => {
-//    res.statusCode = 200;
-//    res.setHeader("Content-Type", "text/plain");
-//    res.end("Vivi Gnutzmann :D \n");
-//});
-
-//server.listen(port, hostname, () => {
-//    console.log(`Server running at http://${hostname}:${port}/`);
-//});
