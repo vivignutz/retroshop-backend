@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-require('dotenv').config();
+const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 //const MongoConnectionError = require('./errors/MongoConnectionError');
@@ -8,13 +8,16 @@ const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Carrega variáveis de ambiente
+dotenv.config();
+
 // Middleware para JSON
 app.use(bodyParser.json());
 
 // Middleware para CORS
 app.use(cors());
 
-// Conecta-se ao MongoDB com tratamento de erros e tentativas de reconexão
+// MongoDB connection
 const connectToMongo = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI, {
@@ -23,12 +26,11 @@ const connectToMongo = async () => {
       reconnectTries: 5,
       reconnectInterval: 5000,
     });
-    console.log('MongoDB conectado com sucesso');
+    console.log('MongoDB connected successfully');
   } catch (error) {
-    console.error('Erro ao conectar ao MongoDB:', error);
-    // Trate o erro de conexão aqui, por exemplo, enviar uma resposta de erro ao cliente
-    res.status(500).json({ message: 'Erro ao conectar ao MongoDB' });
-    process.exit(1); // Finaliza o processo Node.js com um código de erro
+    console.error('Error connecting to MongoDB:', error);
+    res.status(500).json({ message: 'Error connecting to MongoDB' });
+    process.exit(1);
   }
 };
 
@@ -36,14 +38,21 @@ const connectToMongo = async () => {
 const productsRoutes = require('./src/routes/productsRoutes.js');
 app.use('/', productsRoutes);
 
-// Middleware de tratamento de erros global
+// Global error handling middleware
 app.use((err, req, res, next) => {
-  console.error('Erro não tratado:', err);
-  res.status(500).json({ message: 'Ocorreu um erro' });
+  console.error('Untreated error:', err);
+  res.status(500).json({ message: 'An error has occurred' });
 });
 
-// Inicia o servidor após a conexão bem-sucedida com o MongoDB
-app.listen(port, async () => {
-  await connectToMongo();
-  console.log(`Servidor está rodando em http://localhost:${port}`);
-});
+// Server starts after successful connection to MongoDB
+const startServer = async () => {
+  try {
+    await connectToMongo();
+    app.listen(port, () => {
+      console.log(`Server is running on http://localhost:${port}`);
+    });
+  } catch (error) {
+    console.error('Error starting the server:', error);
+    process.exit(1);
+  }
+};
