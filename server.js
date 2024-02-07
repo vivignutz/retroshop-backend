@@ -1,13 +1,12 @@
 const express = require('express');
-const app = express();
-const port = 3000;
 const mongoose = require('mongoose');
+require('dotenv').config();
 const bodyParser = require('body-parser');
 const cors = require('cors');
+//const MongoConnectionError = require('./errors/MongoConnectionError');
 
-app.get('/welcome', (req, res) => {
-    res.send('Welcome to my website!');
-});
+const app = express();
+const port = process.env.PORT || 3000;
 
 // Middleware para JSON
 app.use(bodyParser.json());
@@ -15,23 +14,36 @@ app.use(bodyParser.json());
 // Middleware para CORS
 app.use(cors());
 
-// MongoDB connection + error message
-// in case server doesn't connetc
-mongoose.connect('mongodb://localhost:27017/ecommerce');
-mongoose.connect('mongodb://localhost:27017/ecommerce', { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => {
-        console.log("MongoDB connected successfully");
-    })
-    .catch(err => {
-        console.error("MongoDB connection error:", err);
-        process.exit(1); // Finish Node.js process with an error code
+// Conecta-se ao MongoDB com tratamento de erros e tentativas de reconexão
+const connectToMongo = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      reconnectTries: 5,
+      reconnectInterval: 5000,
     });
+    console.log('MongoDB conectado com sucesso');
+  } catch (error) {
+    console.error('Erro ao conectar ao MongoDB:', error);
+    // Trate o erro de conexão aqui, por exemplo, enviar uma resposta de erro ao cliente
+    res.status(500).json({ message: 'Erro ao conectar ao MongoDB' });
+    process.exit(1); // Finaliza o processo Node.js com um código de erro
+  }
+};
 
-
-// API routes
-const productsRoutes = require('./routes/prodctsRoutes');
+// Rotas da API
+const productsRoutes = require('./src/routes/productsRoutes.js');
 app.use('/', productsRoutes);
 
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+// Middleware de tratamento de erros global
+app.use((err, req, res, next) => {
+  console.error('Erro não tratado:', err);
+  res.status(500).json({ message: 'Ocorreu um erro' });
+});
+
+// Inicia o servidor após a conexão bem-sucedida com o MongoDB
+app.listen(port, async () => {
+  await connectToMongo();
+  console.log(`Servidor está rodando em http://localhost:${port}`);
 });

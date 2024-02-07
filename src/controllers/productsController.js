@@ -1,4 +1,8 @@
 // controllers/products.js
+const express = require('express');
+const router = express.Router();
+
+
 const getAllProducts = (req, res) => {
     // How to GET all products
     res.json({ message: 'All products' });
