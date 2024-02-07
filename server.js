@@ -6,9 +6,9 @@ const cors = require('cors');
 //const MongoConnectionError = require('./errors/MongoConnectionError');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
-// Carrega variáveis de ambiente
+// Load environment variables
 dotenv.config();
 
 // Middleware para JSON
@@ -21,16 +21,11 @@ app.use(cors());
 const connectToMongo = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      reconnectTries: 5,
-      reconnectInterval: 5000,
     });
     console.log('MongoDB connected successfully');
   } catch (error) {
     console.error('Error connecting to MongoDB:', error);
-    res.status(500).json({ message: 'Error connecting to MongoDB' });
-    process.exit(1);
+    throw new Error('Error connecting to MongoDB');
   }
 };
 
@@ -48,11 +43,13 @@ app.use((err, req, res, next) => {
 const startServer = async () => {
   try {
     await connectToMongo();
-    app.listen(port, () => {
-      console.log(`Server is running on http://localhost:${port}`);
+    app.listen(PORT, () => {
+      console.log(`Server is running on http://localhost:${PORT}`);
     });
   } catch (error) {
     console.error('Error starting the server:', error);
     process.exit(1);
   }
 };
+
+startServer();
