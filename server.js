@@ -1,3 +1,13 @@
+import app from "./src/app.js";
+
+const PORT = 3000;
+
+app.listen(PORT, () => {
+  console.log("server is listening");
+})
+
+
+/*
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
@@ -5,7 +15,6 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 //const MongoConnectionError = require('./errors/MongoConnectionError');
 
-const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Load environment variables
@@ -52,4 +61,4 @@ const startServer = async () => {
   }
 };
 
-startServer();
+startServer();*/
