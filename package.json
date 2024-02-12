@@ -2,7 +2,7 @@
   "name": "retroshop-backend",
   "version": "1.0.0",
   "description": "This is the API for the retroshop project",
-  "main": "index.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

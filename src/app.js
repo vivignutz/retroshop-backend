@@ -1,8 +1,15 @@
 import express from "express";
 import connectToDatabase from "./config/dbConnect.js";
-import routes from "./routes/index.js";
+//import routes from "./Routes/productsRouter.js";
 
+
+const app = express();
+const PORT = 3000;
 const connection = await connectToDatabase();
+
+app.listen(PORT, () => {
+    console.log("I'm still here! :-D");
+});
 
 connection.on("error", (error) => {
     console.error("connection error",  error);
@@ -11,8 +18,5 @@ connection.on("error", (error) => {
 connection.once("open", () => {
     console.log("database connection successful");
 });
-
-const app = express();
-routes(app);
 
 export default app;

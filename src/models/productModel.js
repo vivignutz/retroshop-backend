@@ -23,7 +23,7 @@ const productSchema = new mongoose.Schema({
     origin: { type: String, required: true },
     category: { type: String, required: true },
     price: { type: Number, required: true },
-    quantity: { type: Number, required: true },
+    quantity_in_stock: { type: Number, required: true },
     imageUrl: { type: String, required: true },
     hasProvenanceDocumentation: { type: Boolean, required: true, default: false }
 }, { versionKey: false });
