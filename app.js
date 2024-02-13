@@ -1,5 +1,5 @@
 import express from "express";
-import connectToDatabase from "./config/dbConnect.js";
+import connectToDatabase from "../config/dbConnect.js";
 //import routes from "./Routes/productsRouter.js";
 
 
