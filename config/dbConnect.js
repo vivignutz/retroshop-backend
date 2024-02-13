@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 
 async function connectToDatabase() {
     try {
-        const connectionString = "mongodb+srv://admin:admin2469@cluster0.kpi7bko.mongodb.net/retroshop?retryWrites=true&w=majority";
+        const connectionString = process.env.DB_CONNECTION_STRING;
         if (!connectionString) {
             throw new Error('The DB_CONNECTION_STRING environment variable is not defined.');
         }

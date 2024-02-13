@@ -3,7 +3,11 @@
 const paymentSchema = new mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     amount: { type: Number, required: true },
-    paymentMethod: { type: String, required: true },
+    paymentMethod: {
+        type: String,
+        enum: ["Creditcard", "Paypal", "Stripe", "Bitcoin"],
+        required: true,
+    },
     transactionDate: { type: Date, default: Date.now }
 }, { versionKey: false });
 
