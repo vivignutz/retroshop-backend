@@ -1,6 +1,6 @@
 // app.js 
 import express from 'express';
-import connectToDatabase from '../config/dbConnect';
+import connectToDatabase from './config/dbConnect.js';
 
 
 const expressApp = express();
