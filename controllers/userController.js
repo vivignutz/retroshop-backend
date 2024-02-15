@@ -1,6 +1,7 @@
 import User from '../models/UserModel.js';
 
 const UserController = {
+    // GET
     getAllUsers: async (req, res) => {
         try {
             const users = await User.find();
@@ -10,10 +11,12 @@ const UserController = {
         }
     },
 
+    // GET by ID
     getUserById: async (req, res) => {
         try {
             const id = req.params.id;
             const user = await User.findById(id);
+
             if (!user) {
                 return res.status(404).json({ message: 'User not found.' });
             }
@@ -23,6 +26,7 @@ const UserController = {
         }
     },
 
+    // POST
     createUser: async (req, res) => {
         try {
             const newUser = await User.create(req.body);  
@@ -32,10 +36,12 @@ const UserController = {
         }
     },
 
+    // PUT
     updateUser: async (req, res) => {
         try {
             const id = req.params.id;
             const updatedUser = await User.findByIdAndUpdate(id, req.body, { new: true });
+
             if (!updatedUser) {
                 return res.status(404).json({ message: 'User not found.' });
             }
@@ -45,6 +51,28 @@ const UserController = {
         }
     },
 
+    // PATCH
+    updateUser: async (req, res) => {
+        try {
+            const id = req.params.id;
+            const updates = req.body; 
+
+            if (!updates || Object.keys(updates).length === 0) {
+                return res.status(400).json({ message: 'No fields to update.' });
+            }
+
+            const updatedUser = await User.findByIdAndUpdate(id, updates, { new: true });
+            if (!updatedUser) {
+                return res.status(404).json({ message: 'User not found.' });
+            }
+
+            res.status(200).json({ message: "User updated successfully", user: updatedUser });
+        } catch (error) {
+            res.status(500).json({ message: `${error.message} - user update failure` });
+        }
+    },
+
+    // DELETE
     deleteUser: async (req, res) => {
         try {
             const id = req.params.id;

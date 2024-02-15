@@ -2,11 +2,34 @@
 import mongoose from 'mongoose';
 
 const productSchema = new mongoose.Schema({
-    id: { type: mongoose.Schema.Types.ObjectId },
-    name: { type: String, required: true },
-    description: { type: String, required: true },
-    material: { type: String },
-    manufactured: { type: Number, required: true },
+    id: { 
+        type: mongoose.Schema.Types.ObjectId 
+    },
+    product_name: {
+        type: String,
+        required: true,
+        index: true
+    },
+    slug: {
+        type: String,
+        required: true
+    },
+    product_description: {
+        type: String,
+        required: true
+    },
+    category_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'productscategories',
+        required: true,
+    },
+    material: {
+        type: String
+    },
+    manufactured: {
+        type: Number,
+        required: true
+    },
     condition: {
         type: String,
         enum: ["New/Unused", "Used/Excellent", "Used/Good", "Used/Fair", "Poor"],
@@ -19,11 +42,34 @@ const productSchema = new mongoose.Schema({
             depth: { type: Number },
         },
     },
-    origin: { type: String, required: true },
-    category: { type: String, required: true },
-    price: { type: Number, required: true },
-    imageUrl: { type: String, required: true },
-    hasProvenanceDocumentation: { type: Boolean, required: true, default: false }
+    origin: { 
+        type: String,
+        required: true 
+    },
+    //category: { type: String, required: true },
+    original_price: {
+        type: Number,
+    },
+    sale_price: {
+        type: Number,
+        required: true
+    },
+    image: {
+        type: String,
+        required: false,
+    },
+    product_gallery: {
+        type: Array,
+        required: true
+    },
+    is_default: {
+        type: Boolean,
+        default: false
+    },
+    hasProvenanceDocumentation: {
+        type: Boolean,
+        required: true,
+        default: false }
 }, { versionKey: false });
 
 const Product = mongoose.model('Product', productSchema);

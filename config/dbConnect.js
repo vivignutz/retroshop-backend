@@ -8,10 +8,7 @@ async function connectToDatabase() {
             throw new Error('The DB_CONNECTION_STRING environment variable is not defined.');
         }
         
-        await mongoose.connect(connectionString, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
+        await mongoose.connect(connectionString);
         
         console.log('Connected to the database successfully!');
         return mongoose.connection;
