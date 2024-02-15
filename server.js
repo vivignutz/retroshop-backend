@@ -2,7 +2,7 @@
 import dotenv from 'dotenv';
 import cors from 'cors';
 import express from 'express';
-import connectToDatabase from './config/dbConnect.js';
+import connectToDatabase from './database/dbConnect.js';
 import routes from './routes/routes.js'
 
 // Loading the environment
@@ -21,11 +21,6 @@ connectToDatabase()
     .catch((error) => {
         console.error('Error connecting to the database:', error.message);
         process.exit(1);
-    });
-    
-    // "Hello World" Route for tests
-    app.get('/', (req, res) => {
-        res.send('Hello World!');
     });
 
 // Centralized routes

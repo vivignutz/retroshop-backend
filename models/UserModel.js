@@ -12,7 +12,8 @@ const userSchema = new mongoose.Schema({
         country: { type: String, required: true },
         postalCode: { type: String, required: true}
     },
-    phone: { type: String }
+    phone: { type: String },
+    avatar: { type: String }
 }, { versionKey: false });
 
 const User = mongoose.model('User', userSchema);

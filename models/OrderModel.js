@@ -8,7 +8,15 @@ const orderSchema = new mongoose.Schema({
     }],
     totalPrice: { type: Number, required: true },
     status: { type: String, enum: ['Pending', 'In progress', 'Completed', 'Cancelled'], default: 'Pending' },
-    createdAt: { type: Date, default: Date.now }
+    createdAt: { type: Date, default: Date.now },
+    shoppingAddress: {
+        addressLine1: { type: String, required: true },
+        addressLine2: { type: String },
+        city: { type: String, required: true },
+        state: { type: String, required: true },
+        postalCode: { type: String, required: true },
+        country: { type: String, required: true }
+    }
 }, { versionKey: false });
 
 const Order = mongoose.model('Order', orderSchema);
