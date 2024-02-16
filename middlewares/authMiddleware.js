@@ -4,7 +4,13 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-/* It checks if the token is valid and if it is, it decodes it and attaches the decoded token to the request object */
+/**
+ * Middleware function to verify user's token
+ * @param {*} req - Express request object
+ * @param {*} res - Express response object
+ * @param {*} next - Express next middleware function
+ */
+
 const verifyToken = (req, res, next) => {
   const token = String(req.headers.authorization)
     .replace(/^bearer|^jwt/i, "")
@@ -17,7 +23,8 @@ const verifyToken = (req, res, next) => {
         msg: "A token is required for authentication",
       });
     }
-    /* Verifying the token */
+
+    // Verifying the token
     const decoded = jwt.verify(token, process.env.TOKEN_KEY);
     req.userData = decoded;
   } catch (err) {

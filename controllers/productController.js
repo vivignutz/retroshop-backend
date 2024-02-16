@@ -13,8 +13,7 @@ const ProductController = {
 
     getProductById: async (req, res) => {
         try {
-            const id = req.params.id;
-            const product = await Product.findById(id);
+            const product = await Product.findById(req.params.id);
             if (!product) {
                 return res.status(404).json({ message: 'Product not found.' });
             }
@@ -35,8 +34,7 @@ const ProductController = {
 
     updateProduct: async (req, res) => {
         try {
-            const id = req.params.id;
-            const updatedProduct = await Product.findByIdAndUpdate(id, req.body, { new: true });
+            const updatedProduct = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
             if (!updatedProduct) {
                 return res.status(404).json({ message: 'Product not found.' });
             }
@@ -48,8 +46,7 @@ const ProductController = {
 
     deleteProduct: async (req, res) => {
         try {
-            const id = req.params.id;
-            const deletedProduct = await Product.findByIdAndDelete(id);
+            const deletedProduct = await Product.findByIdAndDelete(req.params.id);
             if (!deletedProduct) {
                 return res.status(404).json({ message: 'Product not found.' });
             }
