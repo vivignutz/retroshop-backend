@@ -20,7 +20,7 @@ const productSchema = new mongoose.Schema({
     },
     category_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'productscategories',
+        ref: 'product_categories',
         required: true,
     },
     material: {
