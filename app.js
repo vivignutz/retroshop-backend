@@ -2,7 +2,9 @@
 import express from "express";
 import connectToDatabase from "./database/dbConnect.js";
 import dotenv from 'dotenv';
-import routes from "./Routes/productsRouter.js";
+//import routes from "./routes/routes.js";
+import routes from "./routes/productsRouter.js";
+//import routes from "./routes/usersRouter.js";
 import cors from "cors";
 import path from 'path';
 
@@ -48,29 +50,3 @@ connection.once("open", () => {
 });
 
 export default app;
-
-
-// import express from "express";
-// import connectToDatabase from "../config/dbConnect.js";
-// //import routes from "./Routes/productsRouter.js";
-
-// const app = express();
-// const PORT = 3000;
-// const connection = await connectToDatabase();
-
-// app.use(cors());
-// app.use(express.json());
-
-// app.listen(PORT, () => {
-//     console.log("I'm still here! :-D");
-// });
-
-// connection.on("error", (error) => {
-//     console.error("connection error",  error);
-// });
-
-// connection.once("open", () => {
-//     console.log("database connection successful");
-// });
-
-// export default app;
