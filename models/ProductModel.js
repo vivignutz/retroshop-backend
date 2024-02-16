@@ -20,7 +20,7 @@ const productSchema = new mongoose.Schema({
     },
     category_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'product_categories',
+        ref: 'Category',
         required: true,
     },
     material: {
@@ -56,11 +56,11 @@ const productSchema = new mongoose.Schema({
     },
     image: {
         type: String,
-        required: false,
     },
-    product_gallery: {
-        type: Array,
-        required: true
+    product_gallery: [String],
+    is_default: {
+        type: Boolean,
+        default: false
     },
     is_default: {
         type: Boolean,
