@@ -1,8 +1,8 @@
 
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
-import bcrypt from 'bcrypt';
-import User from '../models/User'; 
+import bcrypt from "bcrypt";
+import User from "../models/User"; 
 
 dotenv.config();
 
