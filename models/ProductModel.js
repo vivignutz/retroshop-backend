@@ -21,7 +21,6 @@ const productSchema = new mongoose.Schema({
   category_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Category",
-    required: true,
   },
   material: {
     type: String
@@ -46,7 +45,6 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true 
   },
-  //category: { type: String, required: true },
   original_price: {
     type: Number,
   },
