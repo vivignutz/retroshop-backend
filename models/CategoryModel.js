@@ -13,24 +13,16 @@ const categorySchema = new mongoose.Schema({
     type: String, 
     required: true 
   },
-  related_products: [{ 
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Product" 
-  }],
+  // related_products: [{ 
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "Product" 
+  // }],
   meta_tags: [{
     type: String
   }], // keywords for SEO
   images: [{ 
     type: String 
   }],
-  parent_category: { 
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Category" 
-  },
-  product_count: { 
-    type: Number,
-    default: 0 
-  },
 }, { versionKey: false });
 
 const Category = mongoose.model("Category", categorySchema);

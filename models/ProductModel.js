@@ -2,9 +2,6 @@
 import mongoose from "mongoose";
 
 const productSchema = new mongoose.Schema({
-  id: { 
-    type: mongoose.Schema.Types.ObjectId 
-  },
   product_name: {
     type: String,
     required: true,
@@ -18,9 +15,9 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  category_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Category",
+  category: {
+    type: String,
+    enum: ["Furniture", "Kitchen", "Bathroom", "Electronics", "Decor", "Miscellaneous"],
   },
   material: {
     type: String
