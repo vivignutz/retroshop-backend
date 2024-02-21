@@ -17,12 +17,13 @@ const UserController = {
       const id = req.params.id;
       const user = await User.findById(id);
 
-      if (!user) {
-        return res.status(404).json({ message: "User not found." });
+      if (user !== null) {
+        res.status(200).json(user);
+      } else {
+        res.status (400).send({message: "User ID not found."});
       }
-      res.status(200).json(user); 
     } catch (error) {
-      res.status(500).json({ message: `${error.message} - user request failure`});
+      res.status(500).send({message: "Internal error server."});
     }
   },
 

@@ -1,6 +1,6 @@
 // routes/routes.js
 import express from "express";
-import usersRouter from "./usersRouter.js";
+import userRouter from "./userRouter.js";
 import productsRouter from "./productsRouter.js";
 import categoryRouter from "./categoryRouter.js";
 import ordersRouter from "./orderRouter.js";
@@ -12,7 +12,7 @@ import loginRouter from "./loginRouter.js";
 const router = express.Router();
 
 router.use("/login", loginRouter);
-router.use("/users", usersRouter);
+router.use("/users", userRouter);
 router.use("/products", productsRouter);
 router.use("/categories", categoryRouter);
 router.use("/orders", ordersRouter);
