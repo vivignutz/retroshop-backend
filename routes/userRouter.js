@@ -1,11 +1,11 @@
 // userRouter/userRouter.js
 
-import express from "express";
+import { Router } from "express";
 import UserController from "../controllers/userController.js";
 import authMiddleware from "../middlewares/auth.Middleware.js";
 import { User } from "../models/UserModel.js";
 
-const userRouter = express.Router();
+const userRouter = Router();
 
 // Middleware to get the users credentials
 userRouter.get("/", authMiddleware, async (req, res) => {

@@ -1,4 +1,5 @@
 //UserModel.js
+
 import mongoose from "mongoose";
 import validator from "validator";
 import bcrypt from "bcrypt";
@@ -34,7 +35,6 @@ const userSchema = new mongoose.Schema({
   },
   avatar: { type: String }
 }, { versionKey: false });
-
 
 // Encrypting user password
 userSchema.pre("save", async function (next) {

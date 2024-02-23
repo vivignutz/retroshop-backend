@@ -2,52 +2,11 @@
 
 import express from "express";
 import bcryptjs from "bcryptjs";
-import { User } from "../model/UserModel";
 import jwt from "jsonwebtoken";
-import authMiddleware from "../middlewares/auth.Middleware";
+import { User } from "../models/UserModel.js"; 
+import authMiddleware from "../middlewares/auth.Middleware.js";
 
 const authRouter = express.Router();
-
-// Signup Route
-authRouter.post("/signup", async (req, res) => {
-  try {
-    const { email, password, confirmPassword, username, firstName, lastName, address } = req.body;
-    if (!email || !password || !username || !confirmPassword || !firstName || !lastName || !address) {
-      return res
-        .status(400)
-        .json({ msg: "Please fill in all required fields" });
-    }
-    if (password.length < 6) {
-      return res
-        .status(400)
-        .json({ msg: "Password must be at least 6 characters" });
-    }
-    if (confirmPassword !== password) {
-      return res.status(400).json({ msg: "Meh... Passwords do not match :-( " });
-    }
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res
-        .status(400)
-        .json({ msg: "A user with the same email already exists" });
-    }
-    const hashedPassword = await bcryptjs.hash(password, 8);
-    const newUser = new User({ 
-      email, 
-      password: hashedPassword, 
-      username, 
-      firstName, 
-      lastName, 
-      address 
-    });
-    
-    const savedUser = await newUser.save();
-    res.json(savedUser);
-  } catch (err) {
-    res.status(500)
-      .json({ error: err.message });
-  }
-});
 
 // Login Route
 authRouter.post("/login", async (req, res) => {
@@ -78,6 +37,47 @@ authRouter.post("/login", async (req, res) => {
   } catch (err) {
     res
       .status(500)
+      .json({ error: err.message });
+  }
+});
+
+// Signup Route
+authRouter.post("/signup", async (req, res) => {
+  try {
+    const { firstName, lastName, userName, email, password, confirmPassword, avatar } = req.body;
+    if ( !firstName || !lastName || !userName || !email || !password  || !confirmPassword || !avatar ) {
+      return res
+        .status(400)
+        .json({ msg: "Please fill in all required fields" });
+    }
+    if (password.length < 6) {
+      return res
+        .status(400)
+        .json({ msg: "Password must be at least 6 characters" });
+    }
+    if (confirmPassword !== password) {
+      return res.status(400).json({ msg: "Meh... Passwords do not match :-( " });
+    }
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res
+        .status(400)
+        .json({ msg: "A user with the same email already exists" });
+    }
+    const hashedPassword = await bcryptjs.hash(password, 8);
+    const newUser = new User({ 
+      firstName, 
+      lastName,
+      userName, 
+      email, 
+      password: hashedPassword,
+      avatar,
+    });
+    
+    const savedUser = await newUser.save();
+    res.json(savedUser);
+  } catch (err) {
+    res.status(500)
       .json({ error: err.message });
   }
 });
