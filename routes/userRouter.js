@@ -2,20 +2,12 @@
 
 import express from "express";
 import UserController from "../controllers/userController.js";
-import authMiddleware from "../middlewares/auth.middleware.js";
+import authMiddleware from "../middlewares/auth.Middleware.js";
 import { User } from "../models/UserModel.js";
 
 const userRouter = express.Router();
 
-userRouter.get("/", UserController.getAllUsers);
-userRouter.get("/:id", UserController.getUserById);
-userRouter.post("/", UserController.createUser); 
-userRouter.put("/:id", UserController.updateUser);
-userRouter.patch("/:id", UserController.updateUser);
-userRouter.delete("/:id", UserController.deleteUser);
-
-
-// to get the users credentials
+// Middleware to get the users credentials
 userRouter.get("/", authMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.user);
@@ -31,5 +23,12 @@ userRouter.get("/", authMiddleware, async (req, res) => {
   }
 });
 
-export default userRouter;
+// Routes for user manipulation
+userRouter.get("/", UserController.getAllUsers);
+userRouter.get("/:id", UserController.getUserById);
+userRouter.post("/", UserController.createUser); 
+userRouter.put("/:id", UserController.updateUser);
+userRouter.patch("/:id", UserController.updateUser);
+userRouter.delete("/:id", UserController.deleteUser);
 
+export default userRouter;

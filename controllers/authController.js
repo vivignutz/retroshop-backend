@@ -6,6 +6,7 @@ import { User } from "../models/UserModel.js";
 
 dotenv.config();
 
+// Login
 const login = async (req, res) => {
   const { email, password } = req.body;
 

@@ -6,7 +6,7 @@ import connectToDatabase from "./database/dbConnect.js";
 import dotenv from "dotenv";
 import routes from "./routes/routes.js";
 // import routes from "./routes/productsRouter.js";
-//import routes from "./routes/usersRouter.js";
+//import userRoute from "./routes/usersRouter.js";
 import path from "path";
 import bodyParser from "body-parser";
 

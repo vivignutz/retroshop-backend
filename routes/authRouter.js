@@ -2,9 +2,9 @@
 
 import express from "express";
 import bcryptjs from "bcryptjs";
-import { User } from "../model/UserModel.js";
+import { User } from "../model/UserModel";
 import jwt from "jsonwebtoken";
-import authMiddleware from "../middlewares/auth.middleware.js";
+import authMiddleware from "../middlewares/auth.Middleware";
 
 const authRouter = express.Router();
 
@@ -13,7 +13,9 @@ authRouter.post("/signup", async (req, res) => {
   try {
     const { email, password, confirmPassword, username, firstName, lastName, address } = req.body;
     if (!email || !password || !username || !confirmPassword || !firstName || !lastName || !address) {
-      return res.status(400).json({ msg: "Please fill in all required fields" });
+      return res
+        .status(400)
+        .json({ msg: "Please fill in all required fields" });
     }
     if (password.length < 6) {
       return res
@@ -42,7 +44,8 @@ authRouter.post("/signup", async (req, res) => {
     const savedUser = await newUser.save();
     res.json(savedUser);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500)
+      .json({ error: err.message });
   }
 });
 
@@ -51,23 +54,31 @@ authRouter.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      return res.status(400).json({ msg: "Please enter all required fields" });
+      return res.status(400)
+        .json({ msg: "Please enter all required fields" });
     }
 
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ msg: "Invalid credentials" });
+      return res
+        .status(400)
+        .json({ msg: "Invalid credentials" });
     }
 
     const isMatch = await bcryptjs.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ msg: "Invalid credentials" });
+      return res
+        .status(400)
+        .json({ msg: "Invalid credentials" });
     }
 
     const token = jwt.sign({ id: user._id }, "secretKey", { expiresIn: "1h" });
-    res.json({ token, user: { id: user._id, username: user.username } });
+    res.
+      json({ token, user: { id: user._id, username: user.username } });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res
+      .status(500)
+      .json({ error: err.message });
   }
 });
 
@@ -75,14 +86,23 @@ authRouter.post("/login", async (req, res) => {
 authRouter.post("/tokenIsValid", authMiddleware, async (req, res) => {
   try {
     const token = req.header("x-auth-token");
-    if (!token) return res.json(false);
+    if (!token) 
+      return res
+        .json(false);
     const verified = jwt.verify(token, "secretKey");
-    if (!verified) return res.json(false);
+    if (!verified) 
+      return res
+        .json(false);
     const user = await User.findById(verified.id);
-    if (!user) return res.json(false);
-    return res.json(true);
+    if (!user) 
+      return res
+        .json(false);
+    return res
+      .json(true);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res
+      .status(500)
+      .json({ error: err.message });
   }
 });
 

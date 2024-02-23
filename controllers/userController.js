@@ -30,8 +30,14 @@ const UserController = {
   // POST
   createUser: async (req, res) => {
     try {
-      const newUser = await User.create(req.body);  
+      // verify if user uploaded an avatar
+      let avatarUrl = req.body.avatar ? req.body.avatar : "/images/default-avatar.jpg";
+
+      // create new user
+      const newUser = await User.create({ ...req.body, avatar: avatarUrl });  
+
       res.status(201).json({ message: "User added successfully", user: newUser });
+
     } catch (error) {
       res.status(500).json({ message: `${error.message} - user registration failure` });  
     }
