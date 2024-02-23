@@ -5,10 +5,10 @@ import cors from "cors";
 import connectToDatabase from "./database/dbConnect.js";
 import dotenv from "dotenv";
 import routes from "./routes/routes.js";
-// import routes from "./routes/productsRouter.js";
-//import userRoute from "./routes/usersRouter.js";
 import path from "path";
 import bodyParser from "body-parser";
+import userRouter from "./routes/userRouter.js";
+// import routes from "./routes/productsRouter.js";
 
 // Loading the environment
 dotenv.config();
@@ -20,6 +20,7 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
+app.use("/user", userRouter);
 
 // Middleware for serving static files
 if (process.env.NODE_ENV === "production") {
