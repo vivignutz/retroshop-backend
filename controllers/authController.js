@@ -1,9 +1,7 @@
 
 import dotenv from "dotenv";
-import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-//import { User } from "../models/UserModel.js";  
-import { loginService } from "../services/auth.service.js";
+import { loginService, generateToken } from "../services/auth.service.js";
 
 dotenv.config();
 
@@ -28,15 +26,10 @@ const login = async (req, res) => {
       return res.status(404).send({message: "Invalid user or password"});
     }
 
-    // Generate a JWT token
-    const token = jwt.sign({ email: user.email, userId: user._id }, process.env.JWT_SECRET, { expiresIn: "2h" });
+    const token = generateToken(user.id);
 
-    // Return the token in the response body
-    return res.status(200).json({
-      statusCode: 200,
-      msg: "Login OK!",
-      token,
-    });
+    res.send(token);
+    
   } catch (error) {
     console.error(error);
     return res.status(500).json({

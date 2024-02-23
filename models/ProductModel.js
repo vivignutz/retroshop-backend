@@ -11,7 +11,7 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  product_description: {
+  description: {
     type: String,
     required: true
   },
@@ -22,7 +22,7 @@ const productSchema = new mongoose.Schema({
   material: {
     type: String
   },
-  manufactured: {
+  manufacture_year: {
     type: Number,
     required: true
   },
@@ -30,13 +30,6 @@ const productSchema = new mongoose.Schema({
     type: String,
     enum: ["New/Unused", "Used/Excellent", "Used/Good", "Used/Fair", "Poor"],
     required: true,
-  },
-  dimensions: {
-    type: {
-      width: { type: Number },
-      height: { type: Number },
-      depth: { type: Number },
-    },
   },
   origin: { 
     type: String,
@@ -52,15 +45,6 @@ const productSchema = new mongoose.Schema({
   image: {
     type: String,
   },
-  product_gallery: [String],
-  is_default: {
-    type: Boolean,
-    default: false
-  },
-  hasProvenanceDocumentation: {
-    type: Boolean,
-    required: true,
-    default: false }
 }, { versionKey: false });
 
 const Product = mongoose.model("Product", productSchema);
