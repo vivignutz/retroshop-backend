@@ -4,6 +4,7 @@ import express from "express";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { User } from "../models/UserModel.js"; 
+//import router from "../controllers/authController.js";
 import authMiddleware from "../middlewares/auth.Middleware.js";
 
 const authRouter = express.Router();

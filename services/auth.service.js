@@ -2,6 +2,7 @@
 
 import { User } from "../models/UserModel.js";
 import jwt from "jsonwebtoken";
+import "dotenv/config.js";
 
 const loginService = (email) => User.findOne({email: email}).select("+password");
 

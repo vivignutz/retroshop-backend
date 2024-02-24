@@ -4,13 +4,13 @@ import express from "express";
 import cors from "cors";
 import connectToDatabase from "./database/dbConnect.js";
 import dotenv from "dotenv";
+
 import userRouter from "./routes/userRouter.js";
 import authRouter from "./routes/authRouter.js";
+import productRouter from "./routes/productsRouter.js";
 import routes from "./routes/routes.js";
 import path from "path";
 import bodyParser from "body-parser";
-
-// import routes from "./routes/productsRouter.js";
 
 dotenv.config();
 
@@ -21,8 +21,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
+app.use("/", routes);
 app.use("/user", userRouter);
 app.use("/auth", authRouter);
+app.use("/product", productRouter);
+
 
 // Middleware for serving static files
 if (process.env.NODE_ENV === "production") {
@@ -37,20 +40,17 @@ if (process.env.NODE_ENV === "production") {
 // Connect to the database
 const connection = await connectToDatabase();
 
-// Routes
-app.use("/", routes);
-
-// Start the server
+// Start server
 app.listen(PORT, () => {
   console.log("Server is running on port " + PORT);
 });
 
-// Handle database connection errors
+// Handling database connection errors
 connection.on("error", (error) => {
   console.error("Database connection error:", error);
 });
 
-// Handle successful database connection
+// Handling successful database connection
 connection.once("open", () => {
   console.log("Database connection successful");
 });

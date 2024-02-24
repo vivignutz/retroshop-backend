@@ -1,4 +1,5 @@
 // controller/productController.js
+// import { Router }  from "express";
 import Product from "../models/ProductModel.js";
 
 const ProductController = {
@@ -12,7 +13,7 @@ const ProductController = {
     }
   },
 
-  // GET:ID
+  // GET:ID 
   getProductById: async (req, res) => {
     try {
       const product = await Product.findById(req.params.id);
