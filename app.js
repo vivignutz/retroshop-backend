@@ -2,13 +2,13 @@
 
 import express from "express";
 import cors from "cors";
-import connectToDatabase from "./src/database/dbConnect.js";
+import connectToDatabase from "./database/dbConnect.js";
 import dotenv from "dotenv";
 
-import userRouter from "./src/routes/userRouter.js";
-import authRouter from "./src/routes/authRouter.js";
-import productRouter from "./src/routes/productsRouter.js";
-import routes from "./src/routes/routes.js";
+import userRouter from "./routes/userRouter.js";
+import authRouter from "./routes/authRouter.js";
+import productRouter from "./routes/productsRouter.js";
+import routes from "./routes/routes.js";
 import path from "path";
 import bodyParser from "body-parser";
 
