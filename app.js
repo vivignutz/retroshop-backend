@@ -1,6 +1,5 @@
 // app.js
 
-import React from 'react';
 import express from "express";
 import cors from "cors";
 import connectToDatabase from "./database/dbConnect.js";
