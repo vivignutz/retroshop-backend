@@ -1,4 +1,5 @@
 // CartModel.js
+
 import mongoose from "mongoose";
 
 const cartSchema = new mongoose.Schema({
@@ -9,7 +10,7 @@ const cartSchema = new mongoose.Schema({
   },
   products: [{
     product: { 
-      type: mongoose.Schema.Types.ObjectId, 
+      type: mongoose.Schema.Types.ObjectId,  
       ref: "Product", 
       required: true 
     },

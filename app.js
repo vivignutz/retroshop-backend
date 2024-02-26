@@ -8,6 +8,7 @@ import dotenv from "dotenv";
 import userRouter from "./routes/userRouter.js";
 import authRouter from "./routes/authRouter.js";
 import productRouter from "./routes/productsRouter.js";
+import cartRouter from "./routes/cartRouter.js";
 import routes from "./routes/routes.js";
 import path from "path";
 import bodyParser from "body-parser";
@@ -25,6 +26,7 @@ app.use("/", routes);
 app.use("/user", userRouter);
 app.use("/auth", authRouter);
 app.use("/product", productRouter);
+app.use("/carts", cartRouter);
 
 
 // Middleware for serving static files
