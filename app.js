@@ -1,10 +1,10 @@
 // app.js
 
+import React from 'react';
 import express from "express";
 import cors from "cors";
 import connectToDatabase from "./database/dbConnect.js";
 import dotenv from "dotenv";
-
 import userRouter from "./routes/userRouter.js";
 import authRouter from "./routes/authRouter.js";
 import productRouter from "./routes/productsRouter.js";
