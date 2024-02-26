@@ -3,7 +3,7 @@
 import { User } from "../models/UserModel.js";
 import jwt from "jsonwebtoken";
 import "dotenv/config.js";
-import cloudinary from "./config.js";
+import cloudinary from "cloudinary";
 
 const loginService = (email) => User.findOne({email: email}).select("+password");
 
