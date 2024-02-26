@@ -40,8 +40,8 @@ const productSchema = new mongoose.Schema({
     required: true
   },
   image: {
-    filename: String,
-    extension: String
+    type: String,
+    required: true
   },
 }, { versionKey: false });
 

@@ -10,7 +10,7 @@ import productRouter from "./routes/productsRouter.js";
 import cartRouter from "./routes/cartRouter.js";
 import routes from "./routes/routes.js";
 import path from "path";
-import bodyParser from "body-parser";
+// import bodyParser from "body-parser";
 
 dotenv.config();
 

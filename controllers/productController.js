@@ -2,6 +2,7 @@
 
 // import { Router }  from "express";
 import Product from "../models/ProductModel.js";
+import cloudinary from "../database/cloudinaryConfig.js";
 
 const ProductController = {
   // GET ALL
@@ -30,7 +31,26 @@ const ProductController = {
   // POST
   createProduct: async (req, res) => {
     try {
-      const newProduct = await Product.create(req.body);  
+      const { product_name, slug, description, category, material, manufacture_year, condition, origin, price } = req.body;
+
+      // Image from Cloudinary
+      const result = await cloudinary.v2.uploader.upload(req.file.path, {
+        folder: "oldshop"
+      });
+      
+      const newProduct = await Product.create({ 
+        product_name, 
+        slug, 
+        description, 
+        category, 
+        material, 
+        manufacture_year, 
+        condition, 
+        origin, 
+        price,
+        image: result.secure_url
+      });  
+
       res.status(201).json({ message: "Product added successfully", product: newProduct });
     } catch (error) {
       res.status(500).json({ message: `${error.message} - product registration failure` });  
@@ -40,10 +60,29 @@ const ProductController = {
   // PUT
   updateProduct: async (req, res) => {
     try {
-      const updatedProduct = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      const { product_name, slug, description, category, material, manufacture_year, condition, origin, price } = req.body;
+
+      const result = await cloudinary.v2.uploader.upload(req.file.path, {
+        folder: "oldshop"
+      });
+
+      const updatedProduct = await Product.findByIdAndUpdate(req.params.id, { 
+        product_name, 
+        slug, 
+        description, 
+        category, 
+        material, 
+        manufacture_year, 
+        condition, 
+        origin, 
+        price,
+        image: result.secure_url
+      }, { new: true });
+
       if (!updatedProduct) {
         return res.status(404).json({ message: "Product not found." });
       }
+
       res.status(200).json({ message: "Product updated successfully", product: updatedProduct }); 
     } catch (error) {
       res.status(500).json({ message: `${error.message} - product update failure`});
