@@ -1,4 +1,5 @@
 // controller/productController.js
+
 // import { Router }  from "express";
 import Product from "../models/ProductModel.js";
 

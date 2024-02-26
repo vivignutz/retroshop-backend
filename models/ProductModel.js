@@ -35,15 +35,13 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true 
   },
-  original_price: {
-    type: Number,
-  },
-  sale_price: {
+  price: {
     type: Number,
     required: true
   },
   image: {
-    type: String,
+    filename: String,
+    extension: String
   },
 }, { versionKey: false });
 

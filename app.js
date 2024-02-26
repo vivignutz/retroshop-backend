@@ -20,7 +20,8 @@ const app = express();
 // Middlewares
 app.use(cors());
 app.use(express.json());
-app.use(bodyParser.json());
+//app.use(bodyParser.json());
+
 app.use("/", routes);
 app.use("/user", userRouter);
 app.use("/auth", authRouter);
