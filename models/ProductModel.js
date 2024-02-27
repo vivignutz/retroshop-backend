@@ -22,7 +22,7 @@ const productSchema = new mongoose.Schema({
   material: {
     type: String
   },
-  manufacture_year: {
+  manufactured: {
     type: Number,
     required: true
   },

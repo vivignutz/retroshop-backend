@@ -31,7 +31,7 @@ const ProductController = {
   // POST
   createProduct: async (req, res) => {
     try {
-      const { product_name, slug, description, category, material, manufacture_year, condition, origin, price } = req.body;
+      const { product_name, slug, description, category, material, manufactured, condition, origin, price } = req.body;
 
       // Image from Cloudinary
       const result = await cloudinary.v2.uploader.upload(req.file.path, {
@@ -44,7 +44,7 @@ const ProductController = {
         description, 
         category, 
         material, 
-        manufacture_year, 
+        manufactured, 
         condition, 
         origin, 
         price,
@@ -60,7 +60,7 @@ const ProductController = {
   // PUT
   updateProduct: async (req, res) => {
     try {
-      const { product_name, slug, description, category, material, manufacture_year, condition, origin, price } = req.body;
+      const { product_name, slug, description, category, material, manufactured, condition, origin, price } = req.body;
 
       const result = await cloudinary.v2.uploader.upload(req.file.path, {
         folder: "oldshop"
@@ -72,7 +72,7 @@ const ProductController = {
         description, 
         category, 
         material, 
-        manufacture_year, 
+        manufactured,
         condition, 
         origin, 
         price,
