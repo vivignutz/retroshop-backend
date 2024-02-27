@@ -39,7 +39,7 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  cloudinaryImageId: {
+  Image: {
     type: String,
     required: true
   }

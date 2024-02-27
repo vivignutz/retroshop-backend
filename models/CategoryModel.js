@@ -13,10 +13,6 @@ const categorySchema = new mongoose.Schema({
     type: String, 
     required: true 
   },
-  // related_products: [{ 
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: "Product" 
-  // }],
   meta_tags: [{
     type: String
   }], // keywords for SEO
