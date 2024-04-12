@@ -9,10 +9,13 @@ import paymentRouter from "./paymentRouter.js";
 import cartRouter from "./cartRouter.js";
 import reviewRouter from "./reviewRouter.js";
 import loginRouter from "./loginRouter.js";
+import signupRouter from "./signupRouter.js";
+
 
 const router = express.Router();
 
 router.use("/login", loginRouter);
+router.use("/signup", signupRouter);
 router.use("/users", userRouter);
 router.use("/products", productsRouter);
 router.use("/categories", categoryRouter);
